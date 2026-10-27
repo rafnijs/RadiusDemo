@@ -1,0 +1,43 @@
+@page
+@model CartModel
+@{
+    ViewData["Title"] = "Your cart";
+}
+
+<h1>Your cart</h1>
+
+@if (Model.Lines.Count == 0)
+{
+    <p>Your cart is empty. <a asp-page="/Index">Browse the top 10 bikes</a>.</p>
+}
+else
+{
+    <table class="table align-middle">
+        <thead>
+            <tr><th>Bike</th><th class="text-end">Price</th><th class="text-center">Qty</th><th class="text-end">Subtotal</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.Lines)
+            {
+                <tr>
+                    <td><a asp-page="/Bikes/Details" asp-route-id="@line.BikeId">@line.Name</a></td>
+                    <td class="text-end">@Format.Money(line.UnitPrice)</td>
+                    <td class="text-center">@line.Quantity</td>
+                    <td class="text-end">@Format.Money(line.LineTotal)</td>
+                    <td class="text-end">
+                        <form method="post" asp-page-handler="Remove" asp-route-id="@line.BikeId">
+                            <button class="btn btn-sm btn-outline-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="fw-bold"><td colspan="3" class="text-end">Total</td><td class="text-end">@Format.Money(Model.Total)</td><td></td></tr>
+        </tfoot>
+    </table>
+    <div class="d-flex justify-content-between">
+        <a class="btn btn-outline-secondary" asp-page="/Index">Continue shopping</a>
+        <a class="btn btn-success" asp-page="/Checkout">Checkout</a>
+    </div>
+}

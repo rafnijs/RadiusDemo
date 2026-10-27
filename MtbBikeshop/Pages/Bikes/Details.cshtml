@@ -1,0 +1,59 @@
+@page "{id:int}"
+@model MtbBikeshop.Pages.Bikes.DetailsModel
+@{
+    ViewData["Title"] = Model.Bike.FullName;
+    var bike = Model.Bike;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-page="/Index">Top 10</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@bike.FullName</li>
+    </ol>
+</nav>
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="bike-thumb bike-thumb-lg rounded-4">
+            <span class="rank-badge">#@bike.Rank</span>
+            <span class="bike-icon">🚵</span>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <span class="badge text-bg-secondary">@bike.Category</span>
+        <h1 class="mt-2">@bike.FullName</h1>
+        <p class="lead">@bike.Description</p>
+
+        <dl class="row small">
+            <dt class="col-sm-4">Model year</dt><dd class="col-sm-8">@bike.ModelYear</dd>
+            <dt class="col-sm-4">Frame material</dt><dd class="col-sm-8">@bike.FrameMaterial</dd>
+            <dt class="col-sm-4">Wheel size</dt><dd class="col-sm-8">@bike.WheelSize</dd>
+            <dt class="col-sm-4">Travel (front / rear)</dt><dd class="col-sm-8">@bike.FrontTravelMm / @bike.RearTravelMm mm</dd>
+            <dt class="col-sm-4">Weight</dt><dd class="col-sm-8">@bike.WeightKg kg</dd>
+            <dt class="col-sm-4">Availability</dt>
+            <dd class="col-sm-8">@(bike.Stock > 0 ? $"{bike.Stock} in stock" : "Out of stock")</dd>
+        </dl>
+
+        <div class="d-flex align-items-center gap-3">
+            <span class="fs-3 fw-bold">@Format.Money(bike.Price)</span>
+            <form method="post" asp-route-id="@bike.Id" class="d-flex gap-2">
+                <input type="number" name="quantity" value="1" min="1" max="10" class="form-control" style="width:5rem" />
+                <button class="btn btn-primary" disabled="@(bike.Stock <= 0)">Add to cart</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<h2 class="h4 mt-5">Part list</h2>
+<table class="table table-striped">
+    <thead>
+        <tr><th style="width:30%">Component</th><th>Part</th></tr>
+    </thead>
+    <tbody>
+        @foreach (var part in bike.Parts)
+        {
+            <tr><td class="fw-semibold">@part.Component</td><td>@part.Name</td></tr>
+        }
+    </tbody>
+</table>
+<p class="text-muted small">Specifications are indicative and may change per model year or size.</p>

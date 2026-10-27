@@ -1,0 +1,55 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Top 10 Mountain Bikes";
+}
+
+<section class="hero rounded-4 p-5 mb-4 text-white">
+    <h1 class="display-5 fw-bold">MTB Bikeshop</h1>
+    <p class="lead mb-0">The 10 best mountain bikes of the season, hand-picked and ready to ride.</p>
+</section>
+
+@if (TempData["Message"] is string message)
+{
+    <div class="alert alert-success">@message <a asp-page="/Cart">View cart</a></div>
+}
+
+<div class="d-flex flex-wrap gap-2 mb-4">
+    <a class="btn btn-sm @(string.IsNullOrEmpty(Model.Category) ? "btn-dark" : "btn-outline-dark")" asp-page="/Index">All</a>
+    @foreach (var category in Model.Categories)
+    {
+        <a class="btn btn-sm @(Model.Category == category ? "btn-dark" : "btn-outline-dark")"
+           asp-page="/Index" asp-route-category="@category">@category</a>
+    }
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @foreach (var bike in Model.Bikes)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm bike-card">
+                <div class="bike-thumb">
+                    <span class="rank-badge">#@bike.Rank</span>
+                    <span class="bike-icon">🚵</span>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <span class="badge text-bg-secondary align-self-start mb-2">@bike.Category</span>
+                    <h5 class="card-title mb-1">@bike.FullName</h5>
+                    <p class="text-muted small mb-2">
+                        @bike.FrameMaterial · @bike.WheelSize · @bike.FrontTravelMm/@bike.RearTravelMm mm · @bike.WeightKg kg
+                    </p>
+                    <p class="card-text small flex-grow-1">@bike.Description</p>
+                    <div class="d-flex align-items-center justify-content-between mt-2">
+                        <span class="fs-5 fw-bold">@Format.Money(bike.Price)</span>
+                        <div class="d-flex gap-2">
+                            <a class="btn btn-outline-primary btn-sm" asp-page="/Bikes/Details" asp-route-id="@bike.Id">Details</a>
+                            <form method="post" asp-page-handler="AddToCart" asp-route-id="@bike.Id" asp-route-category="@Model.Category">
+                                <button class="btn btn-primary btn-sm" disabled="@(bike.Stock <= 0)">Add to cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

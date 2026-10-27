@@ -1,0 +1,50 @@
+@page
+@model PartsListModel
+@{
+    ViewData["Title"] = "Top 10 part list";
+}
+
+<h1>Top 10 MTB part list</h1>
+<p class="text-muted">Compare the complete build kit of every bike in our top 10.</p>
+
+<div class="table-responsive parts-table">
+    <table class="table table-bordered table-sm align-middle small">
+        <thead class="table-dark">
+            <tr>
+                <th class="sticky-col">Component</th>
+                @foreach (var bike in Model.Bikes)
+                {
+                    <th>
+                        <a class="link-light" asp-page="/Bikes/Details" asp-route-id="@bike.Id">#@bike.Rank @bike.FullName</a>
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="sticky-col fw-semibold">Category</td>
+                @foreach (var bike in Model.Bikes) { <td>@bike.Category</td> }
+            </tr>
+            <tr>
+                <td class="sticky-col fw-semibold">Travel (F/R)</td>
+                @foreach (var bike in Model.Bikes) { <td>@bike.FrontTravelMm / @bike.RearTravelMm mm</td> }
+            </tr>
+            <tr>
+                <td class="sticky-col fw-semibold">Weight</td>
+                @foreach (var bike in Model.Bikes) { <td>@bike.WeightKg kg</td> }
+            </tr>
+            @foreach (var component in Model.Components)
+            {
+                <tr>
+                    <td class="sticky-col fw-semibold">@component</td>
+                    @foreach (var bike in Model.Bikes) { <td>@Model.PartFor(bike, component)</td> }
+                </tr>
+            }
+            <tr class="table-light">
+                <td class="sticky-col fw-bold">Price</td>
+                @foreach (var bike in Model.Bikes) { <td class="fw-bold">@Format.Money(bike.Price)</td> }
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p class="text-muted small">Specifications are indicative and may change per model year or size.</p>

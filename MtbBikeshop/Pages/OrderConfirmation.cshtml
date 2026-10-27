@@ -1,0 +1,27 @@
+@page "{id:int}"
+@model OrderConfirmationModel
+@{
+    ViewData["Title"] = "Order confirmed";
+}
+
+<div class="text-center py-4">
+    <h1 class="display-6">Thank you, @Model.Order.CustomerName! 🎉</h1>
+    <p class="lead">Your order <strong>#@Model.Order.Id</strong> has been placed. A confirmation will be sent to @Model.Order.Email.</p>
+</div>
+
+<ul class="list-group mx-auto" style="max-width:600px">
+    @foreach (var item in Model.Order.Items)
+    {
+        <li class="list-group-item d-flex justify-content-between">
+            <span>@item.Quantity × @item.BikeName</span>
+            <span>@Format.Money(item.UnitPrice * item.Quantity)</span>
+        </li>
+    }
+    <li class="list-group-item d-flex justify-content-between fw-bold">
+        <span>Total</span><span>@Format.Money(Model.Order.Total)</span>
+    </li>
+</ul>
+
+<div class="text-center mt-4">
+    <a class="btn btn-primary" asp-page="/Index">Back to the shop</a>
+</div>

@@ -1,0 +1,91 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+.hero {
+  background: linear-gradient(135deg, #1f3b2c 0%, #3e6b3f 50%, #c47f2c 100%);
+}
+
+.bike-thumb {
+  position: relative;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #e9f1e6, #cfdcc8);
+}
+
+.bike-thumb-lg {
+  height: 320px;
+}
+
+.bike-icon {
+  font-size: 4rem;
+}
+
+.bike-thumb-lg .bike-icon {
+  font-size: 8rem;
+}
+
+.rank-badge {
+  position: absolute;
+  top: .75rem;
+  left: .75rem;
+  background: #212529;
+  color: #ffc107;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: .25rem .75rem;
+}
+
+.bike-card {
+  transition: transform .15s ease-in-out;
+}
+
+.bike-card:hover {
+  transform: translateY(-3px);
+}
+
+.parts-table th, .parts-table td {
+  min-width: 180px;
+}
+
+.parts-table .sticky-col {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--bs-body-bg);
+  min-width: 140px;
+}
+
+.parts-table thead .sticky-col {
+  background: #212529;
+}
