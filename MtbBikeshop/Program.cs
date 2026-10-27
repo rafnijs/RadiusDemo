@@ -4,9 +4,13 @@ using MtbBikeshop.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var shopDbConnectionString = builder.Configuration.GetConnectionString("ShopDb")
+    ?? throw new InvalidOperationException(
+        "Connection string 'ShopDb' is required. Set ConnectionStrings__ShopDb.");
+
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ShopDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("ShopDb")));
+    options.UseSqlServer(shopDbConnectionString));
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
