@@ -13,11 +13,8 @@
 </nav>
 
 <div class="row g-4">
-    <div class="col-lg-5">
-        <div class="bike-thumb bike-thumb-lg rounded-4">
-            <span class="rank-badge">#@bike.Rank</span>
-            <span class="bike-icon">🚵</span>
-        </div>
+    <div class="col-lg-5 bike-photo-detail">
+        <partial name="_BikePhoto" model="bike" />
     </div>
     <div class="col-lg-7">
         <span class="badge text-bg-secondary">@bike.Category</span>

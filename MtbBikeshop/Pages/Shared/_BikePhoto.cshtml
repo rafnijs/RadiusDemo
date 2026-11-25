@@ -1,0 +1,39 @@
+@model MtbBikeshop.Models.Bike
+@{
+    var photo = BikePhotos.For(Model);
+}
+
+<figure class="bike-photo mb-0">
+    <div class="bike-thumb">
+        @if (photo?.ImageUrl is string imageUrl)
+        {
+            <img src="@imageUrl" alt="@photo.Description"
+                 loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+            <p class="bike-photo-unavailable text-muted text-center p-4" hidden>
+                Manufacturer photo could not be loaded. Use the manufacturer link below.
+            </p>
+        }
+        else
+        {
+            <p class="text-muted text-center p-4 mb-0">
+                No verified manufacturer photo available here.
+            </p>
+        }
+        <span class="rank-badge">#@Model.Rank</span>
+    </div>
+    <figcaption class="small text-muted px-3 py-2">
+        @if (photo is not null)
+        {
+            @photo.Description<br />
+            @if (photo.ImageUrl is not null)
+            {
+                <span>Photo copyright @Model.Brand.</span>
+            }
+            <a href="@photo.SourceUrl">View @Model.FullName at @Model.Brand</a>
+        }
+        else
+        {
+            <span>A photo for @Model.FullName has not been configured.</span>
+        }
+    </figcaption>
+</figure>

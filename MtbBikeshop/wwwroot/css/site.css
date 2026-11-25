@@ -36,23 +36,28 @@ body {
 
 .bike-thumb {
   position: relative;
-  height: 160px;
+  height: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(160deg, #e9f1e6, #cfdcc8);
+  overflow: hidden;
 }
 
-.bike-thumb-lg {
-  height: 320px;
+.bike-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-.bike-icon {
-  font-size: 4rem;
+.bike-card .bike-thumb {
+  border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0;
 }
 
-.bike-thumb-lg .bike-icon {
-  font-size: 8rem;
+.bike-photo-detail .bike-thumb {
+  height: auto;
+  aspect-ratio: 4 / 3;
+  border-radius: 1rem;
 }
 
 .rank-badge {

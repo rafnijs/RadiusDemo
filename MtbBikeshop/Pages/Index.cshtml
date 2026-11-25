@@ -28,10 +28,7 @@
     {
         <div class="col">
             <div class="card h-100 shadow-sm bike-card">
-                <div class="bike-thumb">
-                    <span class="rank-badge">#@bike.Rank</span>
-                    <span class="bike-icon">🚵</span>
-                </div>
+                <partial name="_BikePhoto" model="bike" />
                 <div class="card-body d-flex flex-column">
                     <span class="badge text-bg-secondary align-self-start mb-2">@bike.Category</span>
                     <h5 class="card-title mb-1">@bike.FullName</h5>
